@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Login
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<h1>Registration form</h1>
+<button id="showFormButton">Show Form</button>
+<div id="formContainer" style="display: none;">
+  <div style="background-image: url({% static 'images/bg.jpg' %}); background-size: cover;">
+    <div style="display: flex; justify-content: center; align-items: top; height: 100vh;">
+      <form action="{% url 'new_page' %}" method="post">
+        {% csrf_token %}
+
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" name="dob" id="dob" required><br>
+
+        <label for="age">Age:</label>
+        <input type="number" name="age" id="age" required><br>
+
+        <label for="gender">Gender:</label>
+        <select name="gender" id="gender" required>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" name="phone" id="phone" required><br>
+
+        <label for="email">Email Address:</label>
+        <input type="email" name="email" id="email" required><br>
+
+        <label for="address">Address:</label>
+        <textarea name="address" id="address" required></textarea><br>
+
+        <select name="class" id="class" class="class" placeholder="Select Your department">
+          <option value="" class="selectyour department options">Select Your Department</option>
+          <option class="python">Python</option>
+          <option class="java">Java</option>
+          <option class="PHP">PHP</option>
+          <option class="digital marketing">Digital Marketing</option>
+          <option class="mobile app develop">Mobile App Development</option>
+        </select>
+        <span id="warclass" name="warclass"></span>
+
+        <select name="sec" id="sec" class="sec" placeholder="Materials">
+          <option value="" class="">Materials</option>
+          <option value="" class="selectyourmat">Notebook</option>
+          <option value="" class="selectyourmat">Pen</option>
+          <option value="" class="selectyourmat">Pencil</option>
+          <option value="" class="selectyourmat">Rubber</option>
+        </select>
+        <span id="warsec" name="warsec"></span>
+
+        <select name="purpose"id="purpose" class="purpose"placeholder="purpose">
+          <option value="" class="">purpose</option>
+          <option value="Enquiry">Enquiry</option>
+          <option value="Place Order">Place Order</option>
+          <option value="Return">Return</option>
+        </select><br>
+
+
+        <input type="submit" value="Submit">
+        <div id="messageContainer"></div>
+
+        <p>click her <a href="{% url 'home' %}" id="homeLink">Home</a></p>
+
+
+
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script>
+      document.getElementById('showFormButton').addEventListener('click', function() {
+        const formContainer = document.getElementById('formContainer');
+        formContainer.style.display = formContainer.style.display === 'none' ? 'block' : 'none';
+      });
+
+      document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        const messageContainer = document.getElementById('messageContainer');
+
+        // Simulate a successful submission with a message (you can replace this with your logic)
+        const message = 'Order Confirmed';
+        messageContainer.innerText = message;
+
+        // You can also submit the form data to your server using AJAX if needed
+        // For now, we're just displaying a message
+      });
+</script>
+
+{% for msg in messages %}
+  {{ msg }}
+{% endfor %}
+{% endblock %}
+

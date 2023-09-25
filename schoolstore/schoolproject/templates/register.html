@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Login
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div style="background-image: url('{% static 'images/register.jpg' %}'); background-size: cover;">
+  <div style="display: flex; justify-content: center; align-items: top; height: 100vh;">
+    <form action="{% url 'register' %}" method="post" style="text-align: top;">
+
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Enter your username"><br>
+      <input type="text" name="first_name" placeholder="Enter your first name"><br>
+      <input type="text" name="last_name" placeholder="Enter your last name"><br>
+      <input type="email" name="email" placeholder="Enter your email address"><br>
+      <input type="password" name="password" placeholder="Enter your password"><br>
+      <input type="password" name="password1" placeholder="Confirm your password"><br>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</div>
+<script>
+      document.getElementById('showFormButton').addEventListener('click', function() {
+        const formContainer = document.getElementById('formContainer');
+        formContainer.style.display = formContainer.style.display === 'none' ? 'block' : 'none';
+      });
+
+      document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        const messageContainer = document.getElementById('messageContainer');
+
+        // Simulate a successful submission with a message (you can replace this with your logic)
+        const message =  {{ msg }};
+        messageContainer.innerText = message;
+
+        // You can also submit the form data to your server using AJAX if needed
+        // For now, we're just displaying a message
+      });
+</script>
+
+{% for msg in messages %}
+  {{ msg }}
+{% endfor %}
+{% endblock %}
