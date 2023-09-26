@@ -8,7 +8,7 @@
 {% load static %}
 
 <div style="background-image: url('{% static 'images/register.jpg' %}'); background-size: cover;">
-  <div style="display: flex; justify-content: center; align-items: top; height: 100vh;">
+  <div style="display: flex; justify-content: center; align-items: top; height: 85vh;">
     <form action="{% url 'register' %}" method="post" style="text-align: top;">
 
       {% csrf_token %}
